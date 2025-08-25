@@ -1,7 +1,21 @@
 def get_price_for_item(item):
-    rarity = item.get('rarity', {}).get('displayValue', '').lower()
-    item_type = item.get('type', {}).get('value', '').lower()
-    series = item.get('series', {}).get('value', '').lower() if item.get('series') else None
+    rarity_obj = item.get('rarity', {})
+    if isinstance(rarity_obj, dict):
+        rarity = rarity_obj.get('displayValue', '').lower()
+    else:
+        rarity = str(rarity_obj).lower() if rarity_obj else ''
+    
+    item_type_obj = item.get('type', {})
+    if isinstance(item_type_obj, dict):
+        item_type = item_type_obj.get('value', '').lower()
+    else:
+        item_type = str(item_type_obj).lower() if item_type_obj else ''
+    
+    series_obj = item.get('series')
+    if series_obj and isinstance(series_obj, dict):
+        series = series_obj.get('value', '').lower()
+    else:
+        series = str(series_obj).lower() if series_obj else None
 
     if series:
         if series in ['gaming legends series', 'marvel series', 'star wars series', 'dc series', 'icon series']:

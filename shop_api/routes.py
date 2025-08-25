@@ -27,8 +27,8 @@ def get_random_shop(season):
     if len(cosmetics) < 4:
         return jsonify({'error': f'Not enough cosmetics for season {season}. Found {len(cosmetics)}, need 4.'}), 422
 
-    shop_items = generate_shop_items(skins, cosmetics)
-    return jsonify(shop_items), 200
+    shop_data = generate_shop_items(skins, cosmetics)
+    return jsonify(shop_data)
 
 @shop_bp.route('/', methods=['GET'])
 def index():
